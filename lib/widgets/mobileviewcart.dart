@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:frontend/main.dart';
 import 'package:frontend/pages/sucess.dart';
 import 'package:frontend/widgets/constants.dart';
 import 'package:frontend/widgets/containorder.dart';
@@ -27,6 +29,51 @@ class _MobileViewCartState extends State<MobileViewCart> {
       selectedDate = date;
       selectedTime = time;
     });
+  }
+
+  void showNotification(List<String> testNames) async {
+    // Construct the notification message with the purchased test names
+    String notificationMessage =
+        "Thanks for purchasing  ${testNames.join(', ')}";
+
+    // Create notification details
+    AndroidNotificationDetails androidNotificationDetails =
+        const AndroidNotificationDetails(
+      'health-notifications',
+      'Health Notification',
+      priority: Priority.max,
+      importance: Importance.max,
+    );
+    DarwinNotificationDetails darwinNotificationDetails =
+        const DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+    NotificationDetails notificationDetails = NotificationDetails(
+      android: androidNotificationDetails,
+      iOS: darwinNotificationDetails,
+    );
+
+    // Show the notification
+    await notificationsPlugin.show(
+      0,
+      "Success transaction",
+      notificationMessage,
+      notificationDetails,
+    );
+
+    // Navigate to the success page
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Success(
+          choosenDate: selectedDate,
+          choosenTime: selectedTime,
+        ),
+      ),
+    );
   }
 
   @override
@@ -84,15 +131,12 @@ class _MobileViewCartState extends State<MobileViewCart> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Success(
-                        choosenDate: selectedDate,
-                        choosenTime: selectedTime,
-                      ),
-                    ),
-                  );
+                  // Extract the test names from the cart items list
+                  List<String> purchasedTestNames = widget.cartItems
+                      .map((item) => item['testName'] as String)
+                      .toList();
+
+                  showNotification(purchasedTestNames);
                 },
                 child: Container(
                   height: 60,

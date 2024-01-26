@@ -1,7 +1,11 @@
 // import 'dart:async';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:frontend/main.dart';
 import 'package:frontend/pages/sucess.dart';
 import 'package:frontend/widgets/cartappbar.dart';
 import 'package:frontend/widgets/cartappbardesktop.dart';
@@ -61,12 +65,41 @@ class _CartState extends State<Cart> {
     });
   }
 
+  void showNotification() async {
+    AndroidNotificationDetails androidNotificationDetails =
+        const AndroidNotificationDetails(
+      'health-notifications',
+      'Health Notification',
+      priority: Priority.max,
+      importance: Importance.max,
+    );
+
+    DarwinNotificationDetails darwinNotificationDetails =
+        const DarwinNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    NotificationDetails notificationDetails = NotificationDetails(
+      android: androidNotificationDetails,
+      iOS: darwinNotificationDetails,
+    );
+
+    await notificationsPlugin.show(
+      0,
+      "Simple Notification",
+      "this is a Notification",
+      notificationDetails,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     int totalActualMoney = 0;
     int totalDiscountMoney = 0;
-    print(size.width);
+    // print(size.width);
 
     for (var item in cartItems) {
       totalActualMoney += int.parse(item['actualMoney']);
@@ -148,17 +181,7 @@ class _CartState extends State<Cart> {
                                     height: 30,
                                   ),
                                   GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Success(
-                                            choosenDate: selectedDate,
-                                            choosenTime: selectedTime,
-                                          ),
-                                        ),
-                                      );
-                                    },
+                                    onTap: showNotification,
                                     child: Container(
                                       height: 60,
                                       alignment: Alignment.center,
