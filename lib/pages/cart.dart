@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/sucess.dart';
 import 'package:frontend/widgets/cartappbar.dart';
+import 'package:frontend/widgets/cartappbardesktop.dart';
 import 'package:frontend/widgets/constants.dart';
 import 'package:frontend/widgets/containorder.dart';
 import 'package:frontend/widgets/hardcopyreports.dart';
@@ -61,6 +62,7 @@ class _CartState extends State<Cart> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     int totalActualMoney = 0;
     int totalDiscountMoney = 0;
 
@@ -76,25 +78,27 @@ class _CartState extends State<Cart> {
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const CartAppbar(),
-                const SizedBox(
-                  height: 20,
+                size.width >= 800
+                    ? const CartAppBarDesktop()
+                    : const CartAppbar(),
+                SizedBox(
+                  height: size.width >= 800 ? 20 : 20,
                 ),
                 Text(
                   'Order review',
                   style: GoogleFonts.inter(
                     color: mainColor,
-                    fontSize: 22,
+                    fontSize: size.width >= 800 ? 30 : 22,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: size.width >= 800 ? 30 : 20,
                 ),
                 Wrap(
-                  spacing: 10,
+                  spacing: 30,
                   runSpacing: 20,
                   children: cartItems.map((test) {
                     return ContainerOrder(

@@ -32,6 +32,27 @@
   <title>frontend</title>
   <link rel="manifest" href="manifest.json">
 
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBckNRpBWb8i8aro2iqUjfIsXYUBLgxiTY",
+      authDomain: "health-ap.firebaseapp.com",
+      databaseURL: "https://health-ap-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "health-ap",
+      storageBucket: "health-ap.appspot.com",
+      messagingSenderId: "49534161256",
+      appId: "1:49534161256:web:c464efe6cc7fed3cb3c6dd"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
+
   <script>
     // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;

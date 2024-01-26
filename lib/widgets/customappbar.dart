@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/cart.dart';
 import 'package:frontend/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,7 +17,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     final Size size = MediaQuery.of(context).size;
     return SizedBox(
       // padding: EdgeInsets.all(size.width * 0.01),
-      height: size.width * 0.10,
+      height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -29,33 +30,39 @@ class _CustomAppBarState extends State<CustomAppBar> {
             ),
           ),
           const OtherUtils(),
-          Container(
-            width: size.width * 0.12,
-            padding: EdgeInsets.all(size.width * 0.01),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                width: 1,
-                color: const Color.fromRGBO(16, 33, 125, 1),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Icon(
-                  Icons.shopping_cart,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Cart()));
+            },
+            child: Container(
+              width: size.width * 0.12,
+              padding: EdgeInsets.all(size.width * 0.01),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  width: 1,
                   color: const Color.fromRGBO(16, 33, 125, 1),
-                  size: size.width * 0.02,
                 ),
-                Text(
-                  'Cart',
-                  style: GoogleFonts.poppins(
-                    color: mainColor,
-                    fontSize: size.width * 0.024,
-                    fontWeight: FontWeight.w500,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Icon(
+                    Icons.shopping_cart,
+                    color: const Color.fromRGBO(16, 33, 125, 1),
+                    size: size.width * 0.02,
                   ),
-                )
-              ],
+                  Text(
+                    'Cart',
+                    style: GoogleFonts.poppins(
+                      color: mainColor,
+                      fontSize: size.width * 0.024,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                ],
+              ),
             ),
           )
         ],

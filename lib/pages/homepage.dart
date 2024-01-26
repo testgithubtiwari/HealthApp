@@ -14,7 +14,7 @@ import 'package:frontend/widgets/textlineover.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -23,6 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Tests> populatedList = [];
   List<Package> populatedPackage = [];
+
   @override
   void initState() {
     populatedList = testsList;
@@ -34,95 +35,89 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-        height: size.height,
-        padding: EdgeInsets.fromLTRB(
-            size.width * 0.05, size.width * 0.06, size.width * 0.05, 0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              size.width >= 700
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(
+                20,
+                30,
+                20,
+                0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 90),
+                  const PopularLabTests(),
+                  const SizedBox(height: 20),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Wrap(
+                      spacing: 10,
+                      runSpacing: 20,
+                      children: populatedList.map((test) {
+                        return CustomTestsContainer(
+                          isInCart: true,
+                          id: test.id,
+                          testName: test.testName,
+                          testCount: test.testCount,
+                          reportAvailable: test.reportAvailable,
+                          actualMoney: test.actualMoney,
+                          discountPrice: test.discountPrice,
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  const PopularPackage(),
+                  const SizedBox(height: 20),
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    child: Wrap(
+                      spacing: 10,
+                      runSpacing: 20,
+                      children: populatedPackage.map((test) {
+                        return CustomPackagesContainer(
+                          image: test.image,
+                          testList: test.testList,
+                          packageName: test.packageName,
+                          testCount: test.testCount,
+                          actualMoney: test.actualMoney,
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(
+                20,
+                30,
+                20,
+                0,
+              ),
+              child: size.width >= 700
                   ? const CustomAppBar()
                   : const CustomPhoneAppBar(),
-              const Divider(
-                height: 1,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                height: size.width * 0.03,
-              ),
-              const PopularLabTests(),
-              SizedBox(
-                height: size.width * 0.05,
-              ),
-              Container(
-                padding: EdgeInsets.all(size.width * 0.02),
-                child: Wrap(
-                  spacing: size.width * 0.035,
-                  runSpacing: size.width * 0.025,
-                  alignment: populatedList.length == 1
-                      ? WrapAlignment.center
-                      : WrapAlignment.start,
-                  children: populatedList.map((test) {
-                    return populatedList.length == 1
-                        ? Center(
-                            child: CustomTestsContainer(
-                              id: test.id,
-                              testName: test.testName,
-                              testCount: test.testCount,
-                              reportAvailable: test.reportAvailable,
-                              actualMoney: test.actualMoney,
-                              discountPrice: test.discountPrice,
-                            ),
-                          )
-                        : CustomTestsContainer(
-                            id: test.id,
-                            testName: test.testName,
-                            testCount: test.testCount,
-                            reportAvailable: test.reportAvailable,
-                            actualMoney: test.actualMoney,
-                            discountPrice: test.discountPrice,
-                          );
-                  }).toList(),
-                ),
-              ),
-              SizedBox(
-                height: size.width * 0.03,
-              ),
-              const PopularPackage(),
-              SizedBox(
-                height: size.width * 0.05,
-              ),
-              Container(
-                padding: EdgeInsets.all(size.width * 0.02),
-                child: Wrap(
-                  spacing: size.width * 0.035,
-                  runSpacing: size.width * 0.025,
-                  children: populatedPackage.map((test) {
-                    return CustomPackagesContainer(
-                      image: test.image,
-                      testList: test.testList,
-                      packageName: test.packageName,
-                      testCount: test.testCount,
-                      actualMoney: test.actualMoney,
-                    );
-                  }).toList(),
-                ),
-              ),
-              SizedBox(
-                height: size.width * 0.05,
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 }
 
 class CustomTestsContainer extends StatefulWidget {
+  final bool isInCart;
   final int id;
   final String testName;
   final String testCount;
@@ -132,6 +127,7 @@ class CustomTestsContainer extends StatefulWidget {
 
   const CustomTestsContainer(
       {required this.discountPrice,
+      required this.isInCart,
       required this.id,
       required this.reportAvailable,
       required this.testCount,
@@ -150,8 +146,8 @@ class _CustomTestContainerState extends State<CustomTestsContainer> {
     final Size size = MediaQuery.of(context).size;
     return Container(
       // margin: EdgeInsets.fromLTRB(0, 0, 0, size.width * 0.02),
-      width: 250,
-      height: size.height * 0.40,
+      width: 280,
+      height: size.width >= 700 ? 330 : 350,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         border: Border.all(width: 1, color: Colors.grey),
@@ -160,7 +156,7 @@ class _CustomTestContainerState extends State<CustomTestsContainer> {
         children: [
           Container(
             // padding: EdgeInsets.all(),
-            height: size.height * 0.05,
+            height: 45,
             decoration: const BoxDecoration(
               color: mainColor,
               borderRadius: BorderRadius.only(
@@ -196,7 +192,7 @@ class _CustomTestContainerState extends State<CustomTestsContainer> {
                       ),
                     ),
                     const SizedBox(
-                      width: 35,
+                      width: 40,
                       child: Image(
                         image: AssetImage('assets/images/badge.png'),
                         fit: BoxFit.fill,
@@ -204,9 +200,6 @@ class _CustomTestContainerState extends State<CustomTestsContainer> {
                     )
                   ],
                 ),
-                // SizedBox(
-                //   height: size.width * 0.01,
-                // ),
                 Text(
                   'Get reports in ${widget.reportAvailable} hours',
                   style: const TextStyle(
@@ -233,7 +226,7 @@ class _CustomTestContainerState extends State<CustomTestsContainer> {
                   ],
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 25,
                 ),
                 GestureDetector(
                   onTap: () async {
@@ -273,7 +266,7 @@ class _CustomTestContainerState extends State<CustomTestsContainer> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Container(
                   padding: const EdgeInsets.all(8),

@@ -54,6 +54,8 @@ class DefaultFirebaseOptions {
     appId: '1:49534161256:web:c464efe6cc7fed3cb3c6dd',
     messagingSenderId: '49534161256',
     projectId: 'health-ap',
+    databaseURL:
+        "https://health-ap-default-rtdb.asia-southeast1.firebasedatabase.app",
     authDomain: 'health-ap.firebaseapp.com',
     storageBucket: 'health-ap.appspot.com',
   );

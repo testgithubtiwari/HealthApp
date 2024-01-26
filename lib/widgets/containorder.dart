@@ -70,8 +70,10 @@ class _ContainerOrderState extends State<ContainerOrder> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
       height: 300,
+      width: size.width >= 700 ? 400 : 500,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
@@ -184,16 +186,18 @@ class _ContainerOrderState extends State<ContainerOrder> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.upload,
                         color: mainColor,
-                        size: 30,
+                        size: size.width >= 400 ? 30 : 20,
                       ),
                       Text(
-                        'Upload prescription (optional)',
+                        size.width <= 300
+                            ? 'Upload prescription'
+                            : 'Upload prescription (optional)',
                         style: GoogleFonts.inter(
                           color: mainColor,
-                          fontSize: 16,
+                          fontSize: size.width >= 300 ? 16 : 14,
                           fontWeight: FontWeight.w600,
                         ),
                       )

@@ -15,10 +15,12 @@ class Price extends StatefulWidget {
 class _PriceState extends State<Price> {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     int discountcal =
         int.parse(widget.actualMoney) - int.parse(widget.discountMoney);
     return Container(
       height: 240,
+      width: 400,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -86,7 +88,7 @@ class _PriceState extends State<Price> {
                 'Amount to be paid',
                 style: GoogleFonts.inter(
                   color: mainColor,
-                  fontSize: 18,
+                  fontSize: size.width >= 300 ? 18 : 13,
                   fontWeight: FontWeight.w600,
                 ),
               ),

@@ -34,7 +34,7 @@ class _CustomPackagesContainerState extends State<CustomPackagesContainer> {
     final Size size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.all(size.width * 0.03),
-      height: size.height * 0.40,
+      height: size.width >= 700 ? 330 : 350,
       width: 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -131,7 +131,7 @@ class _CustomPackagesContainerState extends State<CustomPackagesContainer> {
                 ),
               ),
               Container(
-                width: 150,
+                width: size.width >= 300 ? 150 : 100,
                 height: 40,
                 // padding: EdgeInsets.all(size.width * 0.01),
                 decoration: BoxDecoration(
