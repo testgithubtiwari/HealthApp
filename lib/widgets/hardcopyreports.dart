@@ -13,9 +13,10 @@ class _HardCopyReportsState extends State<HardCopyReports> {
   bool isChecked = false;
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.all(10),
-      height: 180,
+      height: size.width >= 300 ? 180 : 200,
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
@@ -38,10 +39,13 @@ class _HardCopyReportsState extends State<HardCopyReports> {
                 },
                 activeColor: mainColor,
               ),
-              const Text(
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
                 'Hard Copy Reports',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: size.width >= 300 ? 16 : 13,
                   fontWeight: FontWeight.normal,
                 ),
               ),

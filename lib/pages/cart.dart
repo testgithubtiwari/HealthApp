@@ -8,6 +8,7 @@ import 'package:frontend/widgets/cartappbardesktop.dart';
 import 'package:frontend/widgets/constants.dart';
 import 'package:frontend/widgets/containorder.dart';
 import 'package:frontend/widgets/hardcopyreports.dart';
+import 'package:frontend/widgets/mobileviewcart.dart';
 import 'package:frontend/widgets/price.dart';
 import 'package:frontend/widgets/selectdate.dart';
 // import 'package:frontend/widgets/textlineover.dart';
@@ -65,6 +66,7 @@ class _CartState extends State<Cart> {
     final Size size = MediaQuery.of(context).size;
     int totalActualMoney = 0;
     int totalDiscountMoney = 0;
+    print(size.width);
 
     for (var item in cartItems) {
       totalActualMoney += int.parse(item['actualMoney']);
@@ -74,11 +76,11 @@ class _CartState extends State<Cart> {
       body: RefreshIndicator(
         onRefresh: () => fetchDataFromDatabase(),
         child: Container(
-          padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+          padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 size.width >= 800
                     ? const CartAppBarDesktop()
@@ -86,77 +88,104 @@ class _CartState extends State<Cart> {
                 SizedBox(
                   height: size.width >= 800 ? 20 : 20,
                 ),
-                Text(
-                  'Order review',
-                  style: GoogleFonts.inter(
-                    color: mainColor,
-                    fontSize: size.width >= 800 ? 30 : 22,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: size.width >= 800 ? 30 : 20,
-                ),
-                Wrap(
-                  spacing: 30,
-                  runSpacing: 20,
-                  children: cartItems.map((test) {
-                    return ContainerOrder(
-                      testName: test['testName'],
-                      discountMoney: test['discountPrice'],
-                      actualMoney: test['actualMoney'],
-                      // onItemRemoved: () => fetchDataFromDatabase(),
-                    );
-                  }).toList(),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                SelectDate(onDateTimeSelected: updateDateTime),
-                const SizedBox(
-                  height: 20,
-                ),
-                Price(
-                  actualMoney: totalActualMoney.toString(),
-                  discountMoney: totalDiscountMoney.toString(),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const HardCopyReports(),
-                const SizedBox(
-                  height: 30,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Success(
-                          choosenDate: selectedDate,
-                          choosenTime: selectedTime,
+                // Center(
+                //   child: Text(
+                //     'Order review',
+                //     style: GoogleFonts.inter(
+                //       color: mainColor,
+                //       fontSize: size.width >= 800 ? 30 : 22,
+                //       fontWeight: FontWeight.w600,
+                //     ),
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: size.width >= 800 ? 30 : 20,
+                // ),
+                // size.width >=800?
+                SingleChildScrollView(
+                  child: size.width >= 1100
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ContainerOrder(
+                              cartItems: cartItems,
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(15),
+                              height: 700,
+                              width: 500,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  width: 1,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              child: Column(
+                                children: [
+                                  // const SizedBox(
+                                  //   height: 20,
+                                  // ),
+                                  SelectDate(
+                                      onDateTimeSelected: updateDateTime),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Price(
+                                    actualMoney: totalActualMoney.toString(),
+                                    discountMoney:
+                                        totalDiscountMoney.toString(),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  const HardCopyReports(),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Success(
+                                            choosenDate: selectedDate,
+                                            choosenTime: selectedTime,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 60,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: mainColor,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Schedule',
+                                          style: GoogleFonts.inter(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        )
+                      : MobileViewCart(
+                          cartItems: cartItems,
                         ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 60,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: mainColor,
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Schedule',
-                        style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ),
                 ),
                 const SizedBox(
                   height: 30,

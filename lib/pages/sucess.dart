@@ -18,21 +18,22 @@ class Success extends StatefulWidget {
 class _SuccessState extends State<Success> {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     DateFormat dateFormat = DateFormat('dd-MM-yyyy');
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+        padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SucessAppBar(),
-              const SizedBox(
-                height: 120,
+              SizedBox(
+                height: size.width >= 1000 ? 40 : 80,
               ),
               Container(
-                height: 500,
+                height: size.width >= 400 ? 500 : 350,
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -48,8 +49,8 @@ class _SuccessState extends State<Success> {
                     ),
                     Container(
                       padding: const EdgeInsets.all(25),
-                      height: 250,
-                      width: 250,
+                      height: size.width >= 400 ? 250 : 150,
+                      width: size.width >= 400 ? 250 : 150,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage('assets/images/success.png'),
@@ -64,7 +65,7 @@ class _SuccessState extends State<Success> {
                       'Lab tests have been scheduled successfully, You will receive a mail of the same. ',
                       style: GoogleFonts.inter(
                         color: const Color.fromARGB(172, 0, 0, 0),
-                        fontSize: 15,
+                        fontSize: size.width >= 1000 ? 24 : 15,
                         fontWeight: FontWeight.w600,
                       ),
                       textAlign: TextAlign.center,
@@ -79,7 +80,11 @@ class _SuccessState extends State<Success> {
                           'Date: ${widget.choosenDate != null ? dateFormat.format(widget.choosenDate!) : 'Not selected'}',
                           style: GoogleFonts.inter(
                             color: Colors.grey,
-                            fontSize: 13,
+                            fontSize: size.width >= 1000
+                                ? 20
+                                : size.width >= 300 && size.width < 1000
+                                    ? 13
+                                    : 10,
                           ),
                         ),
                         const SizedBox(
@@ -99,7 +104,11 @@ class _SuccessState extends State<Success> {
                           'Time: ${widget.choosenTime != null ? widget.choosenTime!.format(context) : 'Not selected'}',
                           style: GoogleFonts.inter(
                             color: Colors.grey,
-                            fontSize: 13,
+                            fontSize: size.width >= 1000
+                                ? 20
+                                : size.width >= 300 && size.width < 1000
+                                    ? 13
+                                    : 10,
                           ),
                         ),
                       ],
@@ -108,7 +117,7 @@ class _SuccessState extends State<Success> {
                 ),
               ),
               const SizedBox(
-                height: 90,
+                height: 70,
               ),
               GestureDetector(
                 onTap: () {

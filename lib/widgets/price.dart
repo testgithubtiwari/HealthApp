@@ -19,8 +19,8 @@ class _PriceState extends State<Price> {
     int discountcal =
         int.parse(widget.actualMoney) - int.parse(widget.discountMoney);
     return Container(
-      height: 240,
-      width: 400,
+      height: 200,
+      // width: 600,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -40,7 +40,7 @@ class _PriceState extends State<Price> {
                 'M.R.P Total',
                 style: GoogleFonts.inter(
                   color: Colors.grey,
-                  fontSize: 13,
+                  fontSize: size.width >= 300 ? 13 : 10,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -48,7 +48,7 @@ class _PriceState extends State<Price> {
                 widget.actualMoney,
                 style: GoogleFonts.inter(
                   color: Colors.grey,
-                  fontSize: 13,
+                  fontSize: size.width >= 300 ? 13 : 10,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -64,7 +64,7 @@ class _PriceState extends State<Price> {
                 'Discount',
                 style: GoogleFonts.inter(
                   color: Colors.grey,
-                  fontSize: 13,
+                  fontSize: size.width >= 300 ? 13 : 10,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -72,7 +72,7 @@ class _PriceState extends State<Price> {
                 discountcal.toString(),
                 style: GoogleFonts.inter(
                   color: Colors.grey,
-                  fontSize: 13,
+                  fontSize: size.width >= 300 ? 13 : 10,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -85,10 +85,14 @@ class _PriceState extends State<Price> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Amount to be paid',
+                size.width >= 300 ? 'Amount to be paid' : 'Amount total',
                 style: GoogleFonts.inter(
                   color: mainColor,
-                  fontSize: size.width >= 300 ? 18 : 13,
+                  fontSize: size.width >= 400
+                      ? 18
+                      : size.width >= 300 && size.width < 800
+                          ? 13
+                          : 10,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -96,7 +100,11 @@ class _PriceState extends State<Price> {
                 '\u{20B9} ${widget.discountMoney}/-',
                 style: GoogleFonts.inter(
                   color: mainColor,
-                  fontSize: 18,
+                  fontSize: size.width >= 400
+                      ? 18
+                      : size.width >= 300 && size.width < 800
+                          ? 13
+                          : 10,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -112,7 +120,11 @@ class _PriceState extends State<Price> {
                 'Total savings',
                 style: GoogleFonts.inter(
                   color: mainColor,
-                  fontSize: 15,
+                  fontSize: size.width >= 400
+                      ? 18
+                      : size.width >= 300 && size.width < 800
+                          ? 13
+                          : 10,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -123,7 +135,11 @@ class _PriceState extends State<Price> {
                 '\u{20B9} ${discountcal.toString()}/-',
                 style: GoogleFonts.inter(
                   color: mainColor,
-                  fontSize: 20,
+                  fontSize: size.width >= 400
+                      ? 18
+                      : size.width >= 300 && size.width < 800
+                          ? 13
+                          : 10,
                   fontWeight: FontWeight.w700,
                 ),
               ),

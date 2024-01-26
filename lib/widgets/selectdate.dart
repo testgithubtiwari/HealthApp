@@ -64,6 +64,7 @@ class _SelectDateState extends State<SelectDate> {
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
@@ -76,18 +77,26 @@ class _SelectDateState extends State<SelectDate> {
         children: [
           IconButton(
             onPressed: () => _selectDate(context),
-            icon: const Icon(
+            icon: Icon(
               Icons.calendar_today,
               color: Colors.grey,
-              size: 30,
+              size: size.width >= 800
+                  ? 30
+                  : size.width >= 400 && size.width < 800
+                      ? 20
+                      : 16,
             ),
           ),
           IconButton(
             onPressed: () => _selectTime(context),
-            icon: const Icon(
+            icon: Icon(
               Icons.access_time,
               color: Colors.grey,
-              size: 30,
+              size: size.width >= 800
+                  ? 30
+                  : size.width >= 400 && size.width < 800
+                      ? 20
+                      : 16,
             ),
           ),
           const SizedBox(
@@ -95,12 +104,22 @@ class _SelectDateState extends State<SelectDate> {
           ),
           Expanded(
             child: TextField(
+              style: const TextStyle(
+                color: mainColor,
+                fontWeight: FontWeight.w800,
+              ),
               controller: _textEditingController,
-              decoration: const InputDecoration(
-                labelText: 'please select date and time',
+              decoration: InputDecoration(
+                labelText: size.width >= 300
+                    ? 'please select date and time'
+                    : 'Date & Time',
                 labelStyle: TextStyle(
                   color: mainColor,
-                  fontSize: 15,
+                  fontSize: size.width >= 800
+                      ? 20
+                      : size.width >= 400 && size.width < 800
+                          ? 17
+                          : 14,
                 ),
                 border: InputBorder.none,
               ),
