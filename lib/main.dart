@@ -1,5 +1,3 @@
-// import 'package:awesome_notifications/awesome_notifications.dart';
-// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:frontend/pages/homepage.dart';
@@ -10,17 +8,6 @@ FlutterLocalNotificationsPlugin notificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 void main() async {
-  // AwesomeNotifications().initialize(
-  //   null,
-  //   [
-  //     NotificationChannel(
-  //       channelKey: 'health',
-  //       channelName: 'HealthApp',
-  //       channelDescription: 'This is a notification',
-  //     )
-  //   ],
-  //   debug: true,
-  // );
   // Ensure that Flutter is fully initialized before proceeding
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -38,10 +25,11 @@ void main() async {
     iOS: iosSettings,
   );
 
+  // ignore: unused_local_variable
   bool? initialized =
       await notificationsPlugin.initialize(initializationSettings);
 
-  print('Notifications : ${initialized}');
+  // print('Notifications : ${initialized}');
 
   // Initialize Firebase after Flutter is initialized
   await Firebase.initializeApp(

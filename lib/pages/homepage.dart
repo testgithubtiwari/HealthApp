@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/data/packagedata.dart';
 import 'package:frontend/data/testdata.dart';
@@ -30,11 +29,6 @@ class _HomePageState extends State<HomePage> {
     populatedList = testsList;
     populatedPackage = packageList;
 
-    // AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-    //   if (!isAllowed) {
-    //     AwesomeNotifications().requestPermissionToSendNotifications();
-    //   }
-    // });
     super.initState();
   }
 

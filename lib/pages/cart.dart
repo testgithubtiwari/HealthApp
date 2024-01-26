@@ -1,8 +1,7 @@
 // import 'dart:async';
 
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:frontend/main.dart';
@@ -65,7 +64,12 @@ class _CartState extends State<Cart> {
     });
   }
 
-  void showNotification() async {
+  void showNotification(List<String> testNames) async {
+    // Construct the notification message with the purchased test names
+    String notificationMessage =
+        "Thanks for purchasing  ${testNames.join(', ')}";
+
+    // Create notification details
     AndroidNotificationDetails androidNotificationDetails =
         const AndroidNotificationDetails(
       'health-notifications',
@@ -73,24 +77,35 @@ class _CartState extends State<Cart> {
       priority: Priority.max,
       importance: Importance.max,
     );
-
     DarwinNotificationDetails darwinNotificationDetails =
         const DarwinNotificationDetails(
       presentAlert: true,
       presentBadge: true,
       presentSound: true,
     );
-
     NotificationDetails notificationDetails = NotificationDetails(
       android: androidNotificationDetails,
       iOS: darwinNotificationDetails,
     );
 
+    // Show the notification
     await notificationsPlugin.show(
       0,
-      "Simple Notification",
-      "this is a Notification",
+      "Success transaction",
+      notificationMessage,
       notificationDetails,
+    );
+
+    // Navigate to the success page
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Success(
+          choosenDate: selectedDate,
+          choosenTime: selectedTime,
+        ),
+      ),
     );
   }
 
@@ -181,7 +196,15 @@ class _CartState extends State<Cart> {
                                     height: 30,
                                   ),
                                   GestureDetector(
-                                    onTap: showNotification,
+                                    onTap: () {
+                                      List<String> purchasedTestNames =
+                                          cartItems
+                                              .map((item) =>
+                                                  item['testName'] as String)
+                                              .toList();
+
+                                      showNotification(purchasedTestNames);
+                                    },
                                     child: Container(
                                       height: 60,
                                       alignment: Alignment.center,
