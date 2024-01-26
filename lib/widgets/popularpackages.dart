@@ -1,0 +1,170 @@
+import 'package:flutter/material.dart';
+import 'package:frontend/widgets/constants.dart';
+// import 'package:frontend/widgets/textlinebelow.dart';
+// import 'package:google_fonts/google_fonts.dart';
+
+class PopularPackage extends StatefulWidget {
+  const PopularPackage({super.key});
+
+  @override
+  State<PopularPackage> createState() => _PupularPackageState();
+}
+
+class _PupularPackageState extends State<PopularPackage> {
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    return size.width >= 700
+        ? SizedBox(
+            height: size.width * 0.20,
+            width: size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Popular Packages',
+                  style: TextStyle(
+                    color: mainColor,
+                    fontSize: size.width * 0.05,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                SizedBox(
+                  height: size.width * 0.02,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const CustomLabTests(),
+                    Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'View more',
+                          style: TextStyle(
+                            color: mainColor,
+                            fontSize: size.width * 0.025,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        // SizedBox(
+                        //   width: size.width * 0.01,
+                        // ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: mainColor,
+                          size: size.width * 0.022,
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Popular Packages',
+                style: TextStyle(
+                  color: mainColor,
+                  fontSize: size.width * 0.045,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'View more',
+                        style: TextStyle(
+                          color: mainColor,
+                          fontSize: size.width * 0.035,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(
+                        width: size.width * 0.01,
+                      ),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: mainColor,
+                        size: size.width * 0.04,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          );
+  }
+}
+
+class CustomLabTests extends StatefulWidget {
+  const CustomLabTests({super.key});
+
+  @override
+  State<CustomLabTests> createState() => _CustomLabTestsState();
+}
+
+class _CustomLabTestsState extends State<CustomLabTests> {
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    return Container(
+      padding: EdgeInsets.all(size.width * 0.005),
+      // height: size.width * 0.14,
+      width: size.width * 0.75,
+      child: const Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          CustomLabName(isSelected: true, text: 'Popular tests'),
+          CustomLabName(isSelected: false, text: 'Fever'),
+          CustomLabName(isSelected: false, text: 'Covid 19'),
+          CustomLabName(isSelected: false, text: 'Allergy Profiles'),
+          CustomLabName(isSelected: false, text: 'Fittness'),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomLabName extends StatefulWidget {
+  final String text;
+  final bool isSelected;
+  const CustomLabName(
+      {required this.isSelected, required this.text, super.key});
+
+  @override
+  State<CustomLabName> createState() => _CustomTextNameState();
+}
+
+class _CustomTextNameState extends State<CustomLabName> {
+  @override
+  Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+    return Container(
+      padding: EdgeInsets.all(size.width * 0.01),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: widget.isSelected ? mainColor : Colors.transparent,
+        border: Border.all(
+          color: mainColor,
+          width: 1,
+        ),
+      ),
+      child: Text(
+        widget.text,
+        style: TextStyle(
+          color: widget.isSelected ? Colors.white : mainColor,
+          fontSize: size.width * 0.02,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+}
