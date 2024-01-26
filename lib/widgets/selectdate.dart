@@ -78,7 +78,7 @@ class _SelectDateState extends State<SelectDate> {
             onPressed: () => _selectDate(context),
             icon: const Icon(
               Icons.calendar_today,
-              color: mainColor,
+              color: Colors.grey,
               size: 30,
             ),
           ),
@@ -86,7 +86,7 @@ class _SelectDateState extends State<SelectDate> {
             onPressed: () => _selectTime(context),
             icon: const Icon(
               Icons.access_time,
-              color: mainColor,
+              color: Colors.grey,
               size: 30,
             ),
           ),
@@ -97,6 +97,11 @@ class _SelectDateState extends State<SelectDate> {
             child: TextField(
               controller: _textEditingController,
               decoration: const InputDecoration(
+                labelText: 'please select date and time',
+                labelStyle: TextStyle(
+                  color: mainColor,
+                  fontSize: 15,
+                ),
                 border: InputBorder.none,
               ),
               readOnly: true,

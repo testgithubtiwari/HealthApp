@@ -1,4 +1,5 @@
 class Tests {
+  final int id;
   final String testName;
   final String testCount;
   final String reportAvailable;
@@ -6,6 +7,7 @@ class Tests {
   final String actualMoney;
 
   Tests({
+    required this.id,
     required this.testCount,
     required this.testName,
     required this.reportAvailable,

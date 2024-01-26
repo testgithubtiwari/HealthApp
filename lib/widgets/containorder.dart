@@ -1,3 +1,8 @@
+// ignore_for_file: avoid_print
+
+// import 'dart:async';
+
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/constants.dart';
 import 'package:frontend/widgets/textlineover.dart';
@@ -7,9 +12,11 @@ class ContainerOrder extends StatefulWidget {
   final String testName;
   final String actualMoney;
   final String discountMoney;
+  // final VoidCallback? onItemRemoved;
 
   const ContainerOrder(
       {required this.discountMoney,
+      // this.onItemRemoved,
       required this.testName,
       required this.actualMoney,
       super.key});
@@ -19,6 +26,48 @@ class ContainerOrder extends StatefulWidget {
 }
 
 class _ContainerOrderState extends State<ContainerOrder> {
+  void removeItemFromDatabase() {
+    DatabaseReference cartRef =
+        // ignore: deprecated_member_use
+        FirebaseDatabase.instance.reference().child('cart');
+
+    cartRef.once().then((DatabaseEvent event) {
+      if (event.snapshot.exists) {
+        final dynamic snapshotValue = event.snapshot.value;
+
+        if (snapshotValue is Map<dynamic, dynamic>) {
+          Map<dynamic, dynamic> data = snapshotValue;
+
+          String? keyToRemove;
+          data.forEach((key, value) {
+            if (value['testName'] == widget.testName) {
+              keyToRemove = key;
+              return;
+            }
+          });
+
+          if (keyToRemove != null) {
+            cartRef.child(keyToRemove!).remove().then((_) {
+              print("Item removed from database");
+              // Notify the Cart page to refresh
+              // Navigator.of(context).pop(true);
+            }).catchError((error) {
+              print("Failed to remove item: $error");
+            });
+          } else {
+            print("Item not found in database");
+          }
+        } else {
+          print("Snapshot value is not a Map");
+        }
+      } else {
+        print("Snapshot does not exist");
+      }
+    }).catchError((error) {
+      print("Error fetching data: $error");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,31 +138,36 @@ class _ContainerOrderState extends State<ContainerOrder> {
                 const SizedBox(
                   height: 12,
                 ),
-                Container(
-                  width: 170,
-                  height: 50,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: mainColor, width: 1),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Icon(
-                        Icons.delete,
-                        color: mainColor,
-                        size: 30,
-                      ),
-                      Text(
-                        'Remove',
-                        style: GoogleFonts.inter(
+                GestureDetector(
+                  onTap: () {
+                    removeItemFromDatabase();
+                  },
+                  child: Container(
+                    width: 170,
+                    height: 50,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: mainColor, width: 1),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Icon(
+                          Icons.delete,
                           color: mainColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                          size: 30,
                         ),
-                      )
-                    ],
+                        Text(
+                          'Remove',
+                          style: GoogleFonts.inter(
+                            color: mainColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(

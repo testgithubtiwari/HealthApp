@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/data/packagedata.dart';
 import 'package:frontend/data/testdata.dart';
+import 'package:frontend/firebaseservice.dart';
 import 'package:frontend/models/package_model.dart';
 import 'package:frontend/models/test_model.dart';
 import 'package:frontend/widgets/constants.dart';
@@ -68,6 +69,7 @@ class _HomePageState extends State<HomePage> {
                     return populatedList.length == 1
                         ? Center(
                             child: CustomTestsContainer(
+                              id: test.id,
                               testName: test.testName,
                               testCount: test.testCount,
                               reportAvailable: test.reportAvailable,
@@ -76,6 +78,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           )
                         : CustomTestsContainer(
+                            id: test.id,
                             testName: test.testName,
                             testCount: test.testCount,
                             reportAvailable: test.reportAvailable,
@@ -120,6 +123,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class CustomTestsContainer extends StatefulWidget {
+  final int id;
   final String testName;
   final String testCount;
   final String reportAvailable;
@@ -128,6 +132,7 @@ class CustomTestsContainer extends StatefulWidget {
 
   const CustomTestsContainer(
       {required this.discountPrice,
+      required this.id,
       required this.reportAvailable,
       required this.testCount,
       required this.testName,
@@ -139,6 +144,7 @@ class CustomTestsContainer extends StatefulWidget {
 }
 
 class _CustomTestContainerState extends State<CustomTestsContainer> {
+  bool addedToCart = false;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -229,20 +235,39 @@ class _CustomTestContainerState extends State<CustomTestsContainer> {
                 const SizedBox(
                   height: 20,
                 ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  height: 50,
-                  width: size.width,
-                  decoration: BoxDecoration(
+                GestureDetector(
+                  onTap: () async {
+                    FirebaseService firebaseService = FirebaseService();
+                    await firebaseService.addToCart(
+                      widget.id,
+                      widget.testName,
+                      widget.testCount,
+                      widget.reportAvailable,
+                      widget.discountPrice,
+                      widget.actualMoney,
+                    );
+                    setState(() {
+                      addedToCart = true;
+                    });
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    height: 50,
+                    width: size.width,
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: mainColor),
-                  child: const Center(
-                    child: Text(
-                      'Add to Cart',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                      color: addedToCart
+                          ? const Color.fromRGBO(22, 194, 213, 1)
+                          : mainColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        addedToCart ? 'Added to Cart' : 'Add to Cart',
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

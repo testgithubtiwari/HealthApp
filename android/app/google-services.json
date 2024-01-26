@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "49534161256",
+    "firebase_url": "https://health-ap-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "health-ap",
+    "storage_bucket": "health-ap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49534161256:android:095a4f7e774dfbedb3c6dd",
+        "android_client_info": {
+          "package_name": "com.alemeno.intern"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdKzs16f-kw_XoJ6FqZvuwO1bhhEHGRuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
