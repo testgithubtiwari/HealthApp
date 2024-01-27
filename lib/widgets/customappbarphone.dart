@@ -49,7 +49,7 @@ class _CustomPhoneAppBarState extends State<CustomPhoneAppBar> {
                       color: mainColor,
                       size: 28,
                     ),
-                    if (widget.cartItemCount > 0) // Show item count if > 0
+                    if (widget.cartItemCount > 0)
                       Positioned(
                         right: 0,
                         child: Container(

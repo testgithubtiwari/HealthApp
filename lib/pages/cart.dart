@@ -67,7 +67,7 @@ class _CartState extends State<Cart> {
   void showNotification(List<String> testNames) async {
     // Construct the notification message with the purchased test names
     String notificationMessage =
-        "Thanks for purchasing  ${testNames.join(', ')}";
+        "Thanks for purchasing  ${testNames.join(', ')}!";
 
     // Create notification details
     AndroidNotificationDetails androidNotificationDetails =
@@ -76,6 +76,7 @@ class _CartState extends State<Cart> {
       'Health Notification',
       priority: Priority.max,
       importance: Importance.max,
+      playSound: true,
     );
     DarwinNotificationDetails darwinNotificationDetails =
         const DarwinNotificationDetails(

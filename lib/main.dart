@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:frontend/pages/homepage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:frontend/widgets/cartprovider.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 FlutterLocalNotificationsPlugin notificationsPlugin =
@@ -29,15 +31,18 @@ void main() async {
   bool? initialized =
       await notificationsPlugin.initialize(initializationSettings);
 
-  // print('Notifications : ${initialized}');
-
   // Initialize Firebase after Flutter is initialized
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Run the app
-  runApp(const MyApp());
+  // Provide your ChangeNotifier
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CartProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
