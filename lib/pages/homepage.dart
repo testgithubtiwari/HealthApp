@@ -8,6 +8,7 @@ import 'package:frontend/widgets/customappbar.dart';
 import 'package:frontend/widgets/customappbarphone.dart';
 import 'package:frontend/widgets/custompackagescontaner.dart';
 import 'package:frontend/widgets/customtestscontainer.dart';
+import 'package:frontend/widgets/footer.dart';
 import 'package:frontend/widgets/popularlabtests.dart';
 import 'package:frontend/widgets/popularpackages.dart';
 import 'package:provider/provider.dart';
@@ -38,87 +39,75 @@ class _HomePageState extends State<HomePage> {
     return ChangeNotifierProvider(
       create: (_) => CartProvider(),
       child: Scaffold(
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.fromLTRB(
-                  20,
-                  30,
-                  20,
-                  0,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 100),
-                    const PopularLabTests(),
-                    const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Wrap(
-                        spacing: 10,
-                        runSpacing: 20,
-                        children: populatedList.map((test) {
-                          return CustomTestsContainer(
-                            id: test.id,
-                            testName: test.testName,
-                            testCount: test.testCount,
-                            reportAvailable: test.reportAvailable,
-                            actualMoney: test.actualMoney,
-                            discountPrice: test.discountPrice,
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    const PopularPackage(),
-                    const SizedBox(height: 20),
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Wrap(
-                        spacing: 10,
-                        runSpacing: 20,
-                        children: populatedPackage.map((test) {
-                          return CustomPackagesContainer(
-                            image: test.image,
-                            testList: test.testList,
-                            packageName: test.packageName,
-                            testCount: test.testCount,
-                            actualMoney: test.actualMoney,
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                  ],
-                ),
-              ),
-            ),
-            Consumer<CartProvider>(
-              builder: (context, cartProvider, _) => Positioned(
-                top: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.fromLTRB(
-                    20,
-                    30,
-                    20,
-                    0,
-                  ),
-                  child: size.width >= 900
-                      ? CustomAppBar(
-                          cartItemCount: cartProvider.cartItemCount,
-                        )
-                      : CustomPhoneAppBar(
-                          cartItemCount: cartProvider.cartItemCount,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Consumer<CartProvider>(
+                        builder: (context, cartProvider, _) => Container(
+                          child: size.width >= 900
+                              ? CustomAppBar(
+                                  cartItemCount: cartProvider.cartItemCount,
+                                )
+                              : CustomPhoneAppBar(
+                                  cartItemCount: cartProvider.cartItemCount,
+                                ),
                         ),
+                      ),
+                      // const SizedBox(height: 40),
+                      const PopularLabTests(),
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Wrap(
+                          spacing: 10,
+                          runSpacing: 20,
+                          children: populatedList.map((test) {
+                            return CustomTestsContainer(
+                              id: test.id,
+                              testName: test.testName,
+                              testCount: test.testCount,
+                              reportAvailable: test.reportAvailable,
+                              actualMoney: test.actualMoney,
+                              discountPrice: test.discountPrice,
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const PopularPackage(),
+                      const SizedBox(height: 20),
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Wrap(
+                          spacing: 10,
+                          runSpacing: 20,
+                          children: populatedPackage.map((test) {
+                            return CustomPackagesContainer(
+                              image: test.image,
+                              testList: test.testList,
+                              packageName: test.packageName,
+                              testCount: test.testCount,
+                              actualMoney: test.actualMoney,
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      // Your footer widget
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              size.width >= 1100 ? const Footer() : Container(),
+            ],
+          ),
         ),
       ),
     );

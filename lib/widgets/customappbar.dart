@@ -55,7 +55,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       const Icon(
                         Icons.shopping_cart,
                         color: mainColor,
-                        size: 30,
+                        size: 45,
                       ),
                       if (widget.cartItemCount > 0)
                         Positioned(

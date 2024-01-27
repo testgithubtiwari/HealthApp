@@ -10,6 +10,7 @@ import 'package:frontend/widgets/cartappbar.dart';
 import 'package:frontend/widgets/cartappbardesktop.dart';
 import 'package:frontend/widgets/constants.dart';
 import 'package:frontend/widgets/containorder.dart';
+import 'package:frontend/widgets/footer.dart';
 import 'package:frontend/widgets/hardcopyreports.dart';
 import 'package:frontend/widgets/mobileviewcart.dart';
 import 'package:frontend/widgets/price.dart';
@@ -124,121 +125,136 @@ class _CartState extends State<Cart> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () => fetchDataFromDatabase(),
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                size.width >= 800
-                    ? const CartAppBarDesktop()
-                    : const CartAppbar(),
-                SizedBox(
-                  height: size.width >= 800 ? 20 : 20,
-                ),
-                // Center(
-                //   child: Text(
-                //     'Order review',
-                //     style: GoogleFonts.inter(
-                //       color: mainColor,
-                //       fontSize: size.width >= 800 ? 30 : 22,
-                //       fontWeight: FontWeight.w600,
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(
-                //   height: size.width >= 800 ? 30 : 20,
-                // ),
-                // size.width >=800?
-                SingleChildScrollView(
-                  child: size.width >= 1100
-                      ? Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ContainerOrder(
-                              cartItems: cartItems,
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Container(
-                              padding: const EdgeInsets.all(15),
-                              height: 700,
-                              width: 500,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      size.width >= 800
+                          ? const CartAppBarDesktop()
+                          : const CartAppbar(),
+                      SizedBox(
+                        height: size.width >= 800 ? 20 : 20,
+                      ),
+                      // Center(
+                      //   child: Text(
+                      //     'Order review',
+                      //     style: GoogleFonts.inter(
+                      //       color: mainColor,
+                      //       fontSize: size.width >= 800 ? 30 : 22,
+                      //       fontWeight: FontWeight.w600,
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: size.width >= 800 ? 30 : 20,
+                      // ),
+                      // size.width >=800?
+                      SingleChildScrollView(
+                        child: size.width >= 1100
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // const SizedBox(
-                                  //   height: 20,
-                                  // ),
-                                  SelectDate(
-                                      onDateTimeSelected: updateDateTime),
-                                  const SizedBox(
-                                    height: 20,
-                                  ),
-                                  Price(
-                                    actualMoney: totalActualMoney.toString(),
-                                    discountMoney:
-                                        totalDiscountMoney.toString(),
+                                  ContainerOrder(
+                                    cartItems: cartItems,
                                   ),
                                   const SizedBox(
-                                    height: 20,
+                                    width: 15,
                                   ),
-                                  const HardCopyReports(),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      List<String> purchasedTestNames =
-                                          cartItems
-                                              .map((item) =>
-                                                  item['testName'] as String)
-                                              .toList();
-
-                                      showNotification(purchasedTestNames);
-                                    },
-                                    child: Container(
-                                      height: 60,
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: mainColor,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'Schedule',
-                                          style: GoogleFonts.inter(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
+                                  Container(
+                                    padding: const EdgeInsets.all(15),
+                                    height: 700,
+                                    width: 500,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Colors.grey,
                                       ),
                                     ),
-                                  ),
+                                    child: Column(
+                                      children: [
+                                        // const SizedBox(
+                                        //   height: 20,
+                                        // ),
+                                        SelectDate(
+                                            onDateTimeSelected: updateDateTime),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Price(
+                                          actualMoney:
+                                              totalActualMoney.toString(),
+                                          discountMoney:
+                                              totalDiscountMoney.toString(),
+                                        ),
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        const HardCopyReports(),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            List<String> purchasedTestNames =
+                                                cartItems
+                                                    .map((item) =>
+                                                        item['testName']
+                                                            as String)
+                                                    .toList();
+
+                                            showNotification(
+                                                purchasedTestNames);
+                                          },
+                                          child: Container(
+                                            height: 60,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              color: mainColor,
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                'Schedule',
+                                                style: GoogleFonts.inter(
+                                                  color: Colors.white,
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )
                                 ],
+                              )
+                            : MobileViewCart(
+                                cartItems: cartItems,
                               ),
-                            )
-                          ],
-                        )
-                      : MobileViewCart(
-                          cartItems: cartItems,
-                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              size.width >= 1100 ? const Footer() : Container(),
+            ],
           ),
         ),
       ),

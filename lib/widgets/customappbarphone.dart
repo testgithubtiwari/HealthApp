@@ -32,7 +32,7 @@ class _CustomPhoneAppBarState extends State<CustomPhoneAppBar> {
               Text(
                 'Logo',
                 style: GoogleFonts.poppins(
-                  color: const Color.fromARGB(211, 0, 0, 0),
+                  color: mainColor,
                   fontSize: size.width * 0.065,
                   fontWeight: FontWeight.w600,
                 ),
@@ -44,10 +44,10 @@ class _CustomPhoneAppBarState extends State<CustomPhoneAppBar> {
                 },
                 child: Stack(
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.shopping_cart,
                       color: mainColor,
-                      size: 28,
+                      size: size.width >= 700 ? 44 : 34,
                     ),
                     if (widget.cartItemCount > 0)
                       Positioned(
@@ -58,16 +58,16 @@ class _CustomPhoneAppBarState extends State<CustomPhoneAppBar> {
                             shape: BoxShape.circle,
                             color: Colors.red,
                           ),
-                          constraints: const BoxConstraints(
-                            minWidth: 16,
-                            minHeight: 16,
+                          constraints: BoxConstraints(
+                            minWidth: size.width >= 700 ? 20 : 16,
+                            minHeight: size.width >= 700 ? 20 : 16,
                           ),
                           child: Text(
                             widget.cartItemCount.toString(),
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
+                            style: TextStyle(
                               color: Colors.white,
-                              fontSize: 12,
+                              fontSize: size.width >= 700 ? 18 : 12,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
