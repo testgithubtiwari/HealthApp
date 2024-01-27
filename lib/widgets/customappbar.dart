@@ -4,7 +4,8 @@ import 'package:frontend/widgets/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatefulWidget {
-  const CustomAppBar({super.key});
+  final int cartItemCount;
+  const CustomAppBar({required this.cartItemCount, super.key});
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -48,10 +49,38 @@ class _CustomAppBarState extends State<CustomAppBar> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.shopping_cart,
-                    color: const Color.fromRGBO(16, 33, 125, 1),
-                    size: size.width * 0.02,
+                  Stack(
+                    children: [
+                      const Icon(
+                        Icons.shopping_cart,
+                        color: mainColor,
+                        size: 28,
+                      ),
+                      if (widget.cartItemCount > 0)
+                        Positioned(
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.red,
+                            ),
+                            constraints: const BoxConstraints(
+                              minWidth: 16,
+                              minHeight: 16,
+                            ),
+                            child: Text(
+                              widget.cartItemCount.toString(),
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                   Text(
                     'Cart',
