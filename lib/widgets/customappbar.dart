@@ -15,18 +15,19 @@ class _CustomAppBarState extends State<CustomAppBar> {
   bool isSelected = false;
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    // final Size size = MediaQuery.of(context).size;
     return SizedBox(
       // padding: EdgeInsets.all(size.width * 0.01),
       height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             'Logo',
-            style: GoogleFonts.poppins(
-              color: const Color.fromARGB(211, 0, 0, 0),
-              fontSize: size.width * 0.035,
+            style: GoogleFonts.inter(
+              color: mainColor,
+              fontSize: 35,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -37,10 +38,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   MaterialPageRoute(builder: (context) => const Cart()));
             },
             child: Container(
-              width: size.width * 0.12,
-              padding: EdgeInsets.all(size.width * 0.01),
+              width: 150,
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(15),
                 border: Border.all(
                   width: 1,
                   color: const Color.fromRGBO(16, 33, 125, 1),
@@ -54,11 +55,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       const Icon(
                         Icons.shopping_cart,
                         color: mainColor,
-                        size: 28,
+                        size: 30,
                       ),
                       if (widget.cartItemCount > 0)
                         Positioned(
                           right: 0,
+                          left: 10,
                           child: Container(
                             padding: const EdgeInsets.all(2),
                             decoration: const BoxDecoration(
@@ -66,8 +68,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
                               color: Colors.red,
                             ),
                             constraints: const BoxConstraints(
-                              minWidth: 16,
-                              minHeight: 16,
+                              minWidth: 20,
+                              minHeight: 20,
                             ),
                             child: Text(
                               widget.cartItemCount.toString(),
@@ -84,10 +86,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   ),
                   Text(
                     'Cart',
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       color: mainColor,
-                      fontSize: size.width * 0.024,
-                      fontWeight: FontWeight.w500,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
                     ),
                   )
                 ],
@@ -110,11 +112,11 @@ class OtherUtils extends StatefulWidget {
 class _OtherUtilsState extends State<OtherUtils> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    // final Size size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.fromLTRB(0, size.width * 0.04, 0, 0),
-      width: size.width * 0.50,
-      height: size.width * 0.15,
+      padding: const EdgeInsets.fromLTRB(0, 35, 0, 0),
+      width: 600,
+      // height: size.width * 0.15,
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -147,16 +149,16 @@ class CustomText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    // final Size size = MediaQuery.of(context).size;
     return Column(
       children: [
         Text(
           text,
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             color: isselected
                 ? const Color.fromARGB(255, 11, 39, 199)
                 : Colors.grey,
-            fontSize: size.width * 0.02,
+            fontSize: 25,
             fontWeight: FontWeight.w600,
           ),
         ),

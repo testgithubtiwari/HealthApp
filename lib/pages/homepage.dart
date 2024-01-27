@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 90),
+                    const SizedBox(height: 100),
                     const PopularLabTests(),
                     const SizedBox(height: 20),
                     Container(
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                     20,
                     0,
                   ),
-                  child: size.width >= 700
+                  child: size.width >= 900
                       ? CustomAppBar(
                           cartItemCount: cartProvider.cartItemCount,
                         )

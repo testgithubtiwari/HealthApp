@@ -13,52 +13,80 @@ class _PopularLabTestsState extends State<PopularLabTests> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return size.width >= 700
+    return size.width >= 1000
         ? SizedBox(
-            height: size.width * 0.15,
+            height: 160,
             width: size.width,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              // mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'Popular Lab Tests',
                   style: TextStyle(
                     color: mainColor,
-                    fontSize: size.width * 0.04,
+                    fontSize: 30,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(
-                  height: size.width * 0.02,
+                const SizedBox(
+                  height: 10,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const CustomLabTests(),
-                    Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'View more',
-                          style: TextStyle(
-                            color: mainColor,
-                            fontSize: size.width * 0.025,
-                            fontWeight: FontWeight.w600,
+                size.width >= 1100
+                    ? const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomLabTests(),
+                          Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'View more',
+                                style: TextStyle(
+                                  color: mainColor,
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: mainColor,
+                                size: 20,
+                              ),
+                            ],
                           ),
+                        ],
+                      )
+                    : const CustomLabTests(),
+                size.width >= 1100
+                    ? Container()
+                    : Container(
+                        alignment: Alignment.bottomRight,
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'View more',
+                              style: TextStyle(
+                                color: mainColor,
+                                fontSize: 23,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Icon(
+                              Icons.arrow_forward,
+                              color: mainColor,
+                              size: 20,
+                            ),
+                          ],
                         ),
-                        // SizedBox(
-                        //   width: size.width * 0.01,
-                        // ),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: mainColor,
-                          size: size.width * 0.022,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      )
               ],
             ),
           )
@@ -66,9 +94,9 @@ class _PopularLabTestsState extends State<PopularLabTests> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Popular Lab tests',
+                'Popular Lab Tests',
                 style: TextStyle(
-                  color: const Color.fromRGBO(16, 33, 125, 1),
+                  color: mainColor,
                   fontSize: size.width * 0.045,
                   fontWeight: FontWeight.w600,
                 ),
@@ -114,11 +142,11 @@ class CustomLabTests extends StatefulWidget {
 class _CustomLabTestsState extends State<CustomLabTests> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    // final Size size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.all(size.width * 0.005),
+      padding: const EdgeInsets.all(10),
       // height: size.width * 0.14,
-      width: size.width * 0.75,
+      width: 900,
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -146,9 +174,10 @@ class CustomLabName extends StatefulWidget {
 class _CustomTextNameState extends State<CustomLabName> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    // final Size size = MediaQuery.of(context).size;
     return Container(
-      padding: EdgeInsets.all(size.width * 0.01),
+      width: 150,
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: widget.isSelected ? mainColor : Colors.transparent,
@@ -157,12 +186,14 @@ class _CustomTextNameState extends State<CustomLabName> {
           width: 1,
         ),
       ),
-      child: Text(
-        widget.text,
-        style: TextStyle(
-          color: widget.isSelected ? Colors.white : mainColor,
-          fontSize: size.width * 0.02,
-          fontWeight: FontWeight.w500,
+      child: Center(
+        child: Text(
+          widget.text,
+          style: TextStyle(
+            color: widget.isSelected ? Colors.white : mainColor,
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
